@@ -10,6 +10,7 @@ import SpeziAccount
 import SpeziQuestionnaire
 import SpeziScheduler
 import SwiftUI
+import SpeziHealthKit
 
 
 struct ScheduleView: View {
@@ -21,10 +22,12 @@ struct ScheduleView: View {
 
     @Binding private var presentingAccount: Bool
     
+    @EnvironmentObject var healthManager : HealthKitManager
     
     private var startOfDays: [Date] {
         Array(eventContextsByDate.keys)
     }
+    
     
     
     var body: some View {
@@ -40,6 +43,10 @@ struct ScheduleView: View {
                             }
                     }
                 }
+                Section {
+                    StepCount(activity: Activity(id: 0, title: "Step Count", subtitle: "Daily", image: "figure.walk", amount: "1,234"))
+                }
+                
             }
                 .onChange(of: scheduler) {
                     calculateEventContextsByDate()
@@ -58,6 +65,21 @@ struct ScheduleView: View {
                 .navigationTitle("SCHEDULE_LIST_TITLE")
         }
     }
+    
+//    func readStepCount(from healthStore: HKHealthStore) async -> HKCategoryValue {
+//        
+////        let sampleType = HKQuantityType(.stepCount)
+////        
+////        try await healthStore.requestAuthorization(toShare: [], read: Set<HKObjectType>(HKElectrocardiogram.correlatedSymptomTypes))
+////        
+////        guard let sample = try await healthStore.sampleQuery(for: sampleType, withPredicate: predicate).first,
+////              let categorySample = sample as? HKCategorySample else {
+////            continue
+////        }
+////        symptoms[categorySample.categoryType] = HKCategoryValueSeverity(rawValue: categorySample.value)
+//        
+//        
+//    }
     
     
     init(presentingAccount: Binding<Bool>) {

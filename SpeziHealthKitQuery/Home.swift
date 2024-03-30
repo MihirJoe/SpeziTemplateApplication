@@ -25,7 +25,8 @@ struct HomeView: View {
 
     @AppStorage(StorageKeys.homeTabSelection) private var selectedTab = Tabs.schedule
     @State private var presentingAccount = false
-
+    
+    @EnvironmentObject var healthManager : HealthKitManager // TODO: Convert to SpeziHealthkit
     
     var body: some View {
         TabView(selection: $selectedTab) {
