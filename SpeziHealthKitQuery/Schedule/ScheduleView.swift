@@ -44,7 +44,7 @@ struct ScheduleView: View {
                     }
                 }
                 Section {
-                    StepCount(activity: Activity(id: 0, title: "Step Count", subtitle: "Daily", image: "figure.walk", amount: "1,234"))
+                    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "5,678"))
                 }
                 
             }

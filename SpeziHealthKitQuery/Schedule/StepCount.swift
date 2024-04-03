@@ -11,7 +11,6 @@ struct Activity {
     let id: Int
     let title: String
     let subtitle: String
-    let image: String
     let amount: String // TODO: change to value
     
     // TODO: add weekly, monthly, yearly
@@ -19,17 +18,21 @@ struct Activity {
 
 struct StepCount: View {
     @EnvironmentObject var healthManager : HealthKitManager // TODO: convert to SpeziHealthKit
-    @State var activity: Activity
+    @State var myHealthData: Activity
     var body: some View {
         HStack {
-            Text(activity.title).padding()
-            Text(activity.amount).padding()
-        }
-        .onAppear {
-            // Fetch the daily step count
-            healthManager.fetchDailySteps()
+            ForEach(healthManager.healthKitData.sorted(by: {$0.value.id < $1.value.id}), id: \.key) { item in
+                HStack {
+                    Text(item.value.title).padding(.horizontal)
+                    Text(item.value.amount)
+                }
+                
+            }
         }
         
+        .onAppear {
+            healthManager.fetchDailySteps()
+        }
     }
         
     
@@ -37,5 +40,5 @@ struct StepCount: View {
 }
 
 #Preview {
-    StepCount(activity: Activity(id: 0, title: "Step Count", subtitle: "Daily", image: "figure.walk", amount: "1,234"))
+    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "1,234"))
 }
