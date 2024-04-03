@@ -19,19 +19,28 @@ struct Activity {
 struct StepCount: View {
     @EnvironmentObject var healthManager : HealthKitManager // TODO: convert to SpeziHealthKit
     @State var myHealthData: Activity
+    @State private var myStepCount: Double?
     var body: some View {
         HStack {
-            ForEach(healthManager.healthKitData.sorted(by: {$0.value.id < $1.value.id}), id: \.key) { item in
+            
+            if let stepCount = myStepCount {
                 HStack {
-                    Text(item.value.title).padding(.horizontal)
-                    Text(item.value.amount)
+                    Text("Step Count").padding()
+                    Text(stepCount.formattedString()).padding(.leading)
                 }
-                
+            } else {
+                Text("Fetching step count...")
             }
         }
         
         .onAppear {
-            healthManager.fetchDailySteps()
+            // Fetch the step count data on the main thread (this also avoids lag in the SwiftUI View)
+            healthManager.fetchDailySteps { stepCount in
+                DispatchQueue.main.async {
+                    self.myStepCount = stepCount
+                }
+            }
+            // TODO: add pull to refresh
         }
     }
         

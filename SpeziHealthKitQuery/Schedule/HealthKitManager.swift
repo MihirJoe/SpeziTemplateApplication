@@ -32,7 +32,7 @@ class HealthKitManager: ObservableObject {
     }
    
     
-    func fetchDailySteps() {
+    func fetchDailySteps(completion: @escaping (Double?) -> Void) {
         // TODO: make this function reusable for common HKQuantityTypes
         let steps = HKQuantityType(.stepCount)
         var stepCount = 0.0
@@ -46,15 +46,51 @@ class HealthKitManager: ObservableObject {
             
             // Print the queried step count data
             stepCount = quantity.doubleValue(for: .count())
-            let activity = Activity(id: 0, title: "Step Count", subtitle: "Today's Steps", amount: stepCount.formattedString())
-            DispatchQueue.main.async {
-                self.healthKitData["todaysSteps"] = activity
-            }
+//            let activity = Activity(id: 0, title: "Step Count", subtitle: "Today's Steps", amount: stepCount.formattedString())
+//            DispatchQueue.main.async {
+//
+//            }
+//            self.healthKitData["todaysSteps"] = activity
+            completion(stepCount)
             
         }
         
         healthStore.execute(query)
     }
+    
+//    func fetchDailySteps() async throws -> Double {
+//        let steps = HKQuantityType.quantityType(forIdentifier: .stepCount)!
+//        var stepCount = 0.0
+//        
+//        let predicate = HKQuery.predicateForSamples(withStart: .startOfDay, end: Date())
+//        
+//        let query = HKStatisticsQuery(quantityType: steps, quantitySamplePredicate: predicate) { _, result, error in
+//            guard let quantity = result?.sumQuantity(), error == nil else {
+//                print("Unable to fetch today's HealthKit data.")
+//                return
+//            }
+//            
+//            stepCount = quantity.doubleValue(for: .count())
+//        }
+//        
+//        await withUnsafeContinuation { continuation in
+//            healthStore.execute(query)
+//            
+//            continuation.resume()
+//        }
+//        
+//        return stepCount
+//    }
+//    
+//    func updateStepCount() async {
+//        do {
+//            let stepCount = try await fetchDailySteps()
+//            let activity = Activity(id: 0, title: "Step Count", subtitle: "Today's Steps", amount: stepCount.formattedString())
+//            self.healthKitData["todaysSteps"] = activity
+//        } catch {
+//            print("Error fetching daily steps: \(error)")
+//        }
+//    }
     
 }
 

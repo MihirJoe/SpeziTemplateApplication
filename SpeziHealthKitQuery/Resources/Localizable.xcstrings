@@ -134,6 +134,9 @@
         }
       }
     },
+    "Fetching step count..." : {
+
+    },
     "HEALTHKIT_PERMISSIONS_BUTTON" : {
       "localizations" : {
         "en" : {
@@ -398,6 +401,9 @@
           }
         }
       }
+    },
+    "Step Count" : {
+
     },
     "TASK_CONTEXT_ACTION_QUESTIONNAIRE" : {
       "localizations" : {
