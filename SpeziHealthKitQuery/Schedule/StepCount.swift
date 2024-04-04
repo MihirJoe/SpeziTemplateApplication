@@ -18,7 +18,7 @@ struct Activity {
 
 struct StepCount: View {
     @EnvironmentObject var healthManager : HealthKitManager // TODO: convert to SpeziHealthKit
-    @State var myHealthData: Activity
+//    @State var myHealthData: Activity
     @State private var myStepCount: Double?
     var body: some View {
         HStack {
@@ -49,5 +49,6 @@ struct StepCount: View {
 }
 
 #Preview {
-    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "1,234"))
+//    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "1,234"))
+    StepCount()
 }

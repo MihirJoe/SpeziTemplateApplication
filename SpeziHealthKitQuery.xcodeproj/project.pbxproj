@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		033203462BBEF54600C512D3 /* StepCountChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 033203452BBEF54600C512D3 /* StepCountChart.swift */; };
 		035CAE262BB75EF400EDFA1B /* HealthKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035CAE252BB75EF400EDFA1B /* HealthKitManager.swift */; };
 		035CAE292BB760A800EDFA1B /* StepCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035CAE282BB760A800EDFA1B /* StepCount.swift */; };
 		27FA29902A388E9B009CAC45 /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FA298F2A388E9B009CAC45 /* ModalView.swift */; };
@@ -100,6 +101,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		033203452BBEF54600C512D3 /* StepCountChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCountChart.swift; sourceTree = "<group>"; };
 		035CAE252BB75EF400EDFA1B /* HealthKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitManager.swift; sourceTree = "<group>"; };
 		035CAE282BB760A800EDFA1B /* StepCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepCount.swift; sourceTree = "<group>"; };
 		27FA298F2A388E9B009CAC45 /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				27FA298F2A388E9B009CAC45 /* ModalView.swift */,
 				035CAE252BB75EF400EDFA1B /* HealthKitManager.swift */,
 				035CAE282BB760A800EDFA1B /* StepCount.swift */,
+				033203452BBEF54600C512D3 /* StepCountChart.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				2FE5DC4529EDD7F2004B9AB4 /* Binding+Negate.swift in Sources */,
 				2FC975A82978F11A00BA99FE /* Home.swift in Sources */,
 				2FE5DC4E29EDD7FA004B9AB4 /* ScheduleView.swift in Sources */,
+				033203462BBEF54600C512D3 /* StepCountChart.swift in Sources */,
 				A9DFE8A92ABE551400428242 /* AccountButton.swift in Sources */,
 				2FE5DC3729EDD7CA004B9AB4 /* OnboardingFlow.swift in Sources */,
 				2F1AC9DF2B4E840E00C24973 /* SpeziHealthKitQuery.docc in Sources */,

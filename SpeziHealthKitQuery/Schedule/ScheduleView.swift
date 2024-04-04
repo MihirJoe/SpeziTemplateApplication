@@ -44,7 +44,12 @@ struct ScheduleView: View {
                     }
                 }
                 Section {
-                    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "5,678"))
+                    //                    StepCount(myHealthData: Activity(id: 0, title: "Step Count", subtitle: "Daily", amount: "5,678"))
+                    StepCount().environmentObject(healthManager)
+                }
+                
+                Section {
+                    StepCountChart().environmentObject(healthManager)
                 }
                 
             }
