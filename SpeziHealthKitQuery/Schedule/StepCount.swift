@@ -21,18 +21,21 @@ struct StepCount: View {
 //    @State var myHealthData: Activity
     @State private var myStepCount: Double?
     var body: some View {
-        HStack {
-            
-            if let stepCount = myStepCount {
-                HStack {
-                    Text("Step Count").padding()
-                    Text(stepCount.formattedString()).padding(.leading)
+        VStack {
+            HStack {
+                
+                if let stepCount = myStepCount {
+                    HStack {
+                        Text("Step Count").padding()
+                        Text(stepCount.formattedString()).padding(.leading)
+                    }
+                } else {
+                    Text("Fetching step count...")
                 }
-            } else {
-                Text("Fetching step count...")
             }
+            StepCountChart().environmentObject(healthManager).padding()
         }
-        
+       
         .onAppear {
             // Fetch the step count data on the main thread (this also avoids lag in the SwiftUI View)
             healthManager.fetchDailySteps { stepCount in

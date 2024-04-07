@@ -15,7 +15,7 @@ class HealthKitManager: ObservableObject {
     
     @Published var healthKitData: [String : Activity] = [:] // makes it easy to store multiple HK values in one query
     
-    @Published var oneMonthChartData = [StepView]()
+    @Published var stepData = [StepView]()
     
     // HealthKit authorization already handled during onboarding
     
@@ -25,7 +25,6 @@ class HealthKitManager: ObservableObject {
         Task {
             do {
                 try await healthStore.requestAuthorization(toShare: [], read: healthTypes)
-                fetchPastMonthStepData()
             } catch {
                 print("Unable to fetch health data.")
             }
@@ -74,7 +73,7 @@ class HealthKitManager: ObservableObject {
             result.enumerateStatistics(from: startDate, to: Date()) { statistics, stop in
                 dailySteps.append(StepView(date: statistics.startDate, stepCount: statistics.sumQuantity()?.doubleValue(for: .count()) ?? 0.00))
             }
-            
+
             completion(dailySteps)
         }
         
@@ -93,26 +92,6 @@ class HealthKitManager: ObservableObject {
     
 }
 
-extension Date {
-    static var startOfDay: Date {
-        Calendar.current.startOfDay(for: Date())
-    }
-    
-    static var startOfWeek: Date {
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-        components.weekday = 2 // Monday
-        
-        return calendar.date(from: components)!
-    }
-    
-    static var oneMonthAgo: Date {
-        let calendar = Calendar.current
-        let oneMonth = calendar.date(byAdding: .month, value: -1, to: Date())
-        return calendar.startOfDay(for: oneMonth!)
-    }
-}
-
 extension Double {
     func formattedString() -> String {
         let numberFormatter = NumberFormatter()
@@ -123,15 +102,63 @@ extension Double {
     }
 }
 
+extension Date {
+    static var startOfDay: Date {
+        Calendar.current.startOfDay(for: Date())
+    }
+    
+    static var startOfWeek: Date {
+        let calendar = Calendar.current
+        var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
+//        components.weekday = 2 // Monday
+        
+        return calendar.date(from: components)!
+    }
+    
+    static var oneMonthAgo: Date {
+        let calendar = Calendar.current
+        let oneMonth = calendar.date(byAdding: .month, value: -1, to: Date())
+        return calendar.startOfDay(for: oneMonth!)
+    }
+    
+    static var threeMonthsAgo: Date {
+        let calendar = Calendar.current
+        let threeMonths = calendar.date(byAdding: .month, value: -3, to: Date())
+        return calendar.startOfDay(for: threeMonths!)
+    }
+    
+    static var oneYearAgo: Date {
+        let calendar = Calendar.current
+        let oneYear = calendar.date(byAdding: .year, value: -1, to: Date())
+        return calendar.startOfDay(for: oneYear!)
+    }
+}
+
+
 
 // MARK: Chart Data
 
 extension HealthKitManager {
-    func fetchPastMonthStepData() {
-        fetchStepCount(startDate: .oneMonthAgo) { dailySteps in
-            DispatchQueue.main.async {
-                self.oneMonthChartData = dailySteps
+    func getStartDate(for selectedRange: DateRanges) -> Date {
+        
+        var startDate: Date
+            switch selectedRange {
+            case .oneWeek:
+              startDate = .startOfWeek
+            case .oneMonth:
+              startDate = .oneMonthAgo
+            case .threeMonths:
+              startDate = .threeMonthsAgo
+            case .oneYear:
+              startDate = .oneYearAgo
             }
-        }
+        
+//        fetchStepCount(startDate: startDate) { dailySteps in
+//            DispatchQueue.main.async {
+//                self.stepData = dailySteps
+//            }
+//        }
+        
+        return startDate
     }
 }

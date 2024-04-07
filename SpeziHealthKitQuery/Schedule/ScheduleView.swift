@@ -48,9 +48,9 @@ struct ScheduleView: View {
                     StepCount().environmentObject(healthManager)
                 }
                 
-                Section {
-                    StepCountChart().environmentObject(healthManager)
-                }
+//                Section {
+//                    StepCountChart().environmentObject(healthManager)
+//                }
                 
             }
                 .onChange(of: scheduler) {
