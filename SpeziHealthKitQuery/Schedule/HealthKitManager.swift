@@ -109,10 +109,8 @@ extension Date {
     
     static var startOfWeek: Date {
         let calendar = Calendar.current
-        var components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date())
-//        components.weekday = 2 // Monday
-        
-        return calendar.date(from: components)!
+        var week = calendar.date(byAdding: .weekOfYear, value: -1, to: Date())
+        return calendar.startOfDay(for: week!)
     }
     
     static var oneMonthAgo: Date {
@@ -152,12 +150,6 @@ extension HealthKitManager {
             case .oneYear:
               startDate = .oneYearAgo
             }
-        
-//        fetchStepCount(startDate: startDate) { dailySteps in
-//            DispatchQueue.main.async {
-//                self.stepData = dailySteps
-//            }
-//        }
         
         return startDate
     }
